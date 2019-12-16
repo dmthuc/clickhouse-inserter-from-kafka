@@ -17,7 +17,7 @@ def consume_and_insert(kafka_broker, topic, group, clickhouse_server, table):
     consumer = KafkaConsumer(topic, bootstrap_servers = kafka_broker, enable_auto_commit = False, group_id = group)
     for message in consumer:
         data += message.value
-        if len(data) > 1000000:
+        if len(data) > 1000000000:
             resp = s.post(url, data=data)
             if resp.status_code == 200:
                 consumer.commit()
